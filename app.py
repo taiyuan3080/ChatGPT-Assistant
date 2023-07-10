@@ -253,7 +253,10 @@ with tap_model:
     st.caption("[官网参数说明](https://platform.openai.com/docs/api-reference/completions/create)")
 
 with tab_func:
-    c1, c2 = st.columns(2)
+    c0, c1, c2 = st.columns(3)
+    with c0:
+        options = ['docx', 'pdf', 'MarkDown']
+        selected_option = st.selectbox('选择导出格式', options)
     with c1:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
     with c2:
