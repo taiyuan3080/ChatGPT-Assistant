@@ -255,16 +255,18 @@ with tap_model:
 with tab_func:
     c0, c1, c2 = st.columns(3)
     with c0:
-        options = ['docx', 'pdf', 'MarkDown']
-        selected_option = st.selectbox('选择导出格式', options)
+        options = ['docx', 'pdf', 'md']
+        file_ext = st.selectbox('选择导出格式', options)
+        if file_ext == 'md':
+            mime_str = "text/markdown"
     with c1:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
     with c2:
         btn = st.download_button(
             label="导出聊天记录",
-            data=download_history(st.session_state['history' + current_chat]),
-            file_name=f'{current_chat.split("_")[0]}.md',
-            mime="text/markdown",
+            data=download_history(st.session_state['history' + current_chat], file_ext),
+            file_name=f'{current_chat.split("_")[0]}.{file_ext}',
+            mime=mime_str,
             use_container_width=True
         )
     st.write("\n")
